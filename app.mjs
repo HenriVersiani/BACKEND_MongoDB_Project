@@ -1,7 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { criarUsuarioController, deletarUsuarioController,  listarUsuariosController } from "./controllers/usuarioController.js";
-
+import { alterarUsuarioPorIdController, criarUsuarioController, deletarUsuarioController, listarUsuariosController } from "./controllers/usuarioController.js";
 
 async function connection() {
     try {
@@ -9,19 +8,30 @@ async function connection() {
         console.log("MongoDB conectado com sucesso!");
 
         const colecoes = await mongoose.connection.db.listCollections().toArray();
-        console.log("Coleções disponíveis:", colecoes);
 
-    /*  console.log(await criarUsuarioController({
-            nome: "Henrique",
-            email: "henriversiani1@gmail.com",
-            areaOcupacao: "TI",
-            numeroTelefone: 61991279527
-        }))
-    */
+        // console.log("Coleções disponíveis:", colecoes);
 
-      console.log(await deletarUsuarioController("689e4c470453e92681f1eee5"))
+         /* console.log("Usuário Criado:",await criarUsuarioController({
+                nome: "Henrique",
+                email: "henriversiani4000@gmail.com",
+                areaOcupacao: "TI",
+                numeroTelefone: 61991279527
+            })) */
 
-      console.log(await listarUsuariosController())
+        //  console.log(await deletarUsuarioController("68addb16abe8321dbf041b5b"))
+
+         console.log(await alterarUsuarioPorIdController(
+            {
+                nome: "Alberto",
+                email: "albe@gmail.com",
+                
+            }, "68addeb27c96cfd750adb3c0"
+
+        )) 
+
+          console.log("Listagem de Usuários:", await listarUsuariosController())
+
+        
 
 
     } catch (err) {

@@ -1,4 +1,4 @@
-import { criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, listarUsuarios } from "../services/usuarioService.js";
+import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, encontrarUsuarioPorId, listarUsuarios } from "../services/usuarioService.js";
 
 export async function criarUsuarioController(data) {
 
@@ -8,12 +8,11 @@ export async function criarUsuarioController(data) {
     return "Preencha todos os campos!" 
   }
 
-/*  const emailVerificado = encontrarUsuarioPorEmail(email)   ******* if nao esta funcionando.
+ const emailVerificado = await encontrarUsuarioPorEmail(email)
 
-  if(emailVerificado){
+  if(emailVerificado.length !== 0){
     return "Usuário já existe!"
   }
-*/
 
   return await criarUsuario(data);
 }
@@ -28,3 +27,20 @@ export async function deletarUsuarioController(id) {
 
   return 'Usuário deletado com sucesso!'
 }
+
+//alterar por id
+
+export async function alterarUsuarioPorIdController(data, id) {
+
+  const usuarioAntigo = await encontrarUsuarioPorId(id)
+
+   if(usuarioAntigo.length === 0){
+    return "Usuário não existe!"
+  }
+
+  return await alterarUsuarioPorId(data, id)
+
+}
+
+//encontrar usuario por id
+
