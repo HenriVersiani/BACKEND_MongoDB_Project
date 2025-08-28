@@ -5,9 +5,8 @@ export async function encontrarUsuarioPorEmail(email) {
   return usuario
 }
 
-export async function encontrarUsuarioPorId(id) {
+export async function encontrarUsuarioPorId(id) { //porque nao funciona para alterar por id?
   const usuario = await Usuario.findById(id)
-  console.log(usuario, "estou aqui")
   return usuario
 }
 

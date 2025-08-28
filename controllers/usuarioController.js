@@ -2,15 +2,15 @@ import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuari
 
 export async function criarUsuarioController(data) {
 
-  const {nome, email, areaOcupacao, numeroTelefone} = data
+  const { nome, email, areaOcupacao, numeroTelefone } = data
 
-  if(!nome || !email || !areaOcupacao || !numeroTelefone){
-    return "Preencha todos os campos!" 
+  if (!nome || !email || !areaOcupacao || !numeroTelefone) {
+    return "Preencha todos os campos!"
   }
 
- const emailVerificado = await encontrarUsuarioPorEmail(email)
+  const emailVerificado = await encontrarUsuarioPorEmail(email)
 
-  if(emailVerificado.length !== 0){
+  if (emailVerificado.length !== 0) {
     return "Usuário já existe!"
   }
 
@@ -34,8 +34,8 @@ export async function alterarUsuarioPorIdController(data, id) {
 
   const usuarioAntigo = await encontrarUsuarioPorId(id)
 
-   if(usuarioAntigo.length === 0){
-    return "Usuário não existe!"
+  if (usuarioAntigo === null) {
+    return "Usuário não encontrado!"
   }
 
   return await alterarUsuarioPorId(data, id)
@@ -44,3 +44,17 @@ export async function alterarUsuarioPorIdController(data, id) {
 
 //encontrar usuario por id
 
+export async function encontrarUsuarioPorIdController(id) {
+
+  if (!id) {
+    return "Id do usuário não informado"
+  }
+
+  const usuario = await encontrarUsuarioPorId(id)
+
+  if (usuario === null) {
+    return "Usuário não encontrado."
+  }
+
+  return await encontrarUsuarioPorId(id)
+}
