@@ -9,6 +9,9 @@ export const userRouter = express.Router();
 
 userRouter.get("/", listarUsuariosController);
 userRouter.get("/:id", encontrarUsuarioPorIdController);
+// buscar usuario por nome**
+
 userRouter.post("/", criarUsuarioController);
+
 userRouter.delete("/:id", deletarUsuarioController);
 userRouter.put("/:id", alterarUsuarioPorIdController);

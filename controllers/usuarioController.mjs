@@ -1,20 +1,9 @@
 import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, encontrarUsuarioPorId, listarUsuarios } from "../services/usuarioService.js";
 
-export async function criarUsuarioController(data) {
-
-  const { nome, email, areaOcupacao, numeroTelefone } = data
-
-  if (!nome || !email || !areaOcupacao || !numeroTelefone) {
-    return "Preencha todos os campos!"
-  }
-
-  const emailVerificado = await encontrarUsuarioPorEmail(email)
-
-  if (emailVerificado.length !== 0) {
-    return "Usuário já existe!"
-  }
-
-  return await criarUsuario(data);
+export async function criarUsuarioController(req,res) {
+  const data = req.body
+  const response = await criarUsuario(data)
+  return res.json(response)
 }
 
 export async function listarUsuariosController(req, res) {
@@ -22,40 +11,33 @@ export async function listarUsuariosController(req, res) {
   return res.json(response)
 }
 
-export async function deletarUsuarioController(id) {
+export async function deletarUsuarioController(req,res) {
+  const { id } = req.params
 
-  const usuarioDeletado = await deletarUsuarioPorId(id)
+  const response = await deletarUsuarioPorId(id)
 
-  return 'Usuário deletado com sucesso!'
+  return res.json(response)
 }
 
 //alterar por id
 
-export async function alterarUsuarioPorIdController(data, id) {
+export async function alterarUsuarioPorIdController(req,res) {
+  const { id } = req.params
+  const data = req.body
 
-  const usuarioAntigo = await encontrarUsuarioPorId(id)
+  const response = alterarUsuarioPorId(data,id)
 
-  if (usuarioAntigo === null) {
-    return "Usuário não encontrado!"
-  }
-
-  return await alterarUsuarioPorId(data, id)
+  return res.json(response)
 
 }
 
 //encontrar usuario por id
 
-export async function encontrarUsuarioPorIdController(id) {
+export async function encontrarUsuarioPorIdController(req, res ) {
 
-  if (!id) {
-    return "Id do usuário não informado"
-  }
+  const { id } = req.params
 
-  const usuario = await encontrarUsuarioPorId(id)
+  const response = await encontrarUsuarioPorId(id)
 
-  if (usuario === null) {
-    return "Usuário não encontrado."
-  }
-
-  return await encontrarUsuarioPorId(id)
+  return res.json(response)
 }

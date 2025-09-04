@@ -1,8 +1,9 @@
 import { alterarProdutoPorId, buscarProdutoPorNome, criarProduto, deletarProdutoPorId, listarProdutoPorId, listarProdutos, listarProdutosCategoria } from "../services/produtoService.js";
 
-export async function criarProdutoController(data) {
-
-    return await criarProduto(data)
+export async function criarProdutoController(req, res) {
+    const data = req.body
+    const response = await criarProduto(data)
+    return res.json(response)
 }
 
 export async function listarProdutosController(req, res) {
@@ -10,22 +11,38 @@ export async function listarProdutosController(req, res) {
     return res.json(response)
 }
 
-export async function alterarProdutoPorIdController(data, id) {
-    return await alterarProdutoPorId(data, id)
+export async function alterarProdutoPorIdController(req, res) {
+    const { id } = req.params
+    const data = req.body
+
+    const response = alterarProdutoPorId(data, id)
+    return res.json(response)
 }
 
-export async function deletarProdutoPorIdController(id) {
-    return await deletarProdutoPorId(id)
+export async function deletarProdutoPorIdController(req, res) {
+    const { id } = req.params
+    const response = deletarProdutoPorId(id)
+    return res.json(response)
 }
 
-export async function listarProdutoPorIdController(id) {
-    return await listarProdutoPorId(id)
+export async function listarProdutoPorIdController(req, res) {
+    const { id } = req.params
+
+    const response = await listarProdutoPorId(id)
+
+    return res.json(response)
 }
 
-export async function listarProdutosCategoriaController(nomeCategoria) {
-    return await listarProdutosCategoria(nomeCategoria)
+export async function listarProdutosCategoriaController(req, res) {
+    const { categoria } = req.params
+    const response = await listarProdutosCategoria(categoria)
+
+    return res.json(response)
 }
 
-export async function buscarProdutoPorNomeController(nomeProduto) {
-    return await buscarProdutoPorNome(nomeProduto)
+export async function buscarProdutoPorNomeController(req, res) {
+    const { nome } = req.params
+    const response = await buscarProdutoPorNome(nome)
+
+    return res.json(response)
 }

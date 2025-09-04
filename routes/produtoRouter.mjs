@@ -9,8 +9,8 @@ export const productRouter = express.Router();
 
 productRouter.get("/", listarProdutosController);
 productRouter.get("/:id", listarProdutoPorIdController);
-productRouter.get("/:id", buscarProdutoPorNomeController);
-productRouter.get("/:id", listarProdutosCategoriaController);
+productRouter.get("/nome/:nome", buscarProdutoPorNomeController);
+productRouter.get("/categoria/:categoria", listarProdutosCategoriaController);
 
 productRouter.post("/", criarProdutoController);
 
