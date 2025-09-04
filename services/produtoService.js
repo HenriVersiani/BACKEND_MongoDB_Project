@@ -24,3 +24,7 @@ export async function listarProdutoPorId(id) {
 export async function listarProdutosCategoria(nomeCategoria) {
     return await Produto.find({categoria: nomeCategoria })
 }
+
+export async function buscarProdutoPorNome(nomeProduto) {
+    return await Produto.find({nome: nomeProduto})
+}

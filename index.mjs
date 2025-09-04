@@ -1,66 +1,35 @@
-/* import "dotenv/config";
+import express from "express"
 import mongoose from "mongoose";
+import dotenv from "dotenv"
+import { userRouter } from "./routes/usuarioRouter.mjs";
+import { productRouter } from "./routes/produtoRouter.mjs";
 
-const AgricultorSchema = new mongoose.Schema({
-    fullName: String,
-    cpf: String,
-    birthDate: Date,
-    phone: String,
-    active: Boolean
-});
 
-const Agricultor = mongoose.model("Agricultor", AgricultorSchema);
 
-async function connection() {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("MongoDB conectado com sucesso!");
 
-        const colecoes = await mongoose.connection.db.listCollections().toArray();
-        console.log("Coleções disponíveis:", colecoes);
+dotenv.config();
 
-        const listAll = async () => {
-            const dados = await mongoose.connection.db
-                .collection("agricultors")
-                .find()
-                .toArray();
+const app = express();
 
-            console.log("Documentos da coleção:", dados);
-        }
+app.use(express.json());
+// app.use("/", async (req, res) => {
+//   const myCollections = await mongoose.connection.db.listCollections().toArray();
+//   res.json(myCollections);
+// });
 
-        const listAllWithMongoose = async () => {
-            const dados = await Agricultor.find();
-            console.log("Documentos encontrados com Mongoose:", dados);
-        }
+app.use("/users", userRouter)
+app.use("/products", productRouter)
 
-        const createWithoutSchema = async () => {
-            const novo = {
-                fullName: "Alberto",
-                cpf: "1921992",
-                birthDate: new Date("1985-12-22"),
-                phone: "(28)99577-7777",
-                active: true
-            };
+const PORT = process.env.PORT || 3000;
 
-            const resultado = await mongoose.connection.db
-                .collection("agricultors")
-                .insertOne(novo);
-
-            console.log("Inserido sem schema (_id):", resultado.insertedId);
-        };
-
-        // Execucoes
-        // await listAll();
-        await listAllWithMongoose();
-        // await createWithMongoose();
-        // await createWithoutSchema();
-
-        // await createProdutoAgricolaWithSchema();
-        // await createProdutoAgricolaWithoutSchema();
-
-    } catch (err) {
-        console.log("Erro na conexão:", err);
-    }
-}
-
-connection()
+mongoose
+  .connect(process.env.MONGO_URI_1)
+  .then(() => {
+    console.log("🟢 Conectado ao MongoDB");
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Erro ao conectar ao MongoDB:", err.message);
+  });

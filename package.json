@@ -2,7 +2,7 @@
   "name": "backendmongodb-project",
   "version": "1.0.0",
   "main": "index.mjs",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.1",
-    "mongoose": "^8.17.1"
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0"
   }
 }
