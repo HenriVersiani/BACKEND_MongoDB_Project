@@ -26,3 +26,7 @@ export async function deletarUsuarioPorId(id) {
 export async function alterarUsuarioPorId(data, id) {
   return await Usuario.findByIdAndUpdate(id, data, { new: true })
 }
+
+export async function encontrarUsuarioPorNome(nomeUsuario) {
+  return await Usuario.find({nome: nomeUsuario})
+}

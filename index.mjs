@@ -4,9 +4,6 @@ import dotenv from "dotenv"
 import { userRouter } from "./routes/usuarioRouter.mjs";
 import { productRouter } from "./routes/produtoRouter.mjs";
 
-
-
-
 dotenv.config();
 
 const app = express();

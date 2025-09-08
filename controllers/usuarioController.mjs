@@ -1,6 +1,6 @@
-import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, encontrarUsuarioPorId, listarUsuarios } from "../services/usuarioService.js";
+import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, encontrarUsuarioPorId, encontrarUsuarioPorNome, listarUsuarios } from "../services/usuarioService.js";
 
-export async function criarUsuarioController(req,res) {
+export async function criarUsuarioController(req, res) {
   const data = req.body
   const response = await criarUsuario(data)
   return res.json(response)
@@ -11,7 +11,7 @@ export async function listarUsuariosController(req, res) {
   return res.json(response)
 }
 
-export async function deletarUsuarioController(req,res) {
+export async function deletarUsuarioController(req, res) {
   const { id } = req.params
 
   const response = await deletarUsuarioPorId(id)
@@ -21,11 +21,11 @@ export async function deletarUsuarioController(req,res) {
 
 //alterar por id
 
-export async function alterarUsuarioPorIdController(req,res) {
+export async function alterarUsuarioPorIdController(req, res) {
   const { id } = req.params
   const data = req.body
 
-  const response = alterarUsuarioPorId(data,id)
+  const response = alterarUsuarioPorId(data, id)
 
   return res.json(response)
 
@@ -33,11 +33,19 @@ export async function alterarUsuarioPorIdController(req,res) {
 
 //encontrar usuario por id
 
-export async function encontrarUsuarioPorIdController(req, res ) {
+export async function encontrarUsuarioPorIdController(req, res) {
 
   const { id } = req.params
 
   const response = await encontrarUsuarioPorId(id)
 
   return res.json(response)
+}
+
+export async function encontrarUsuarioPorNomeController(req, res) {
+  const { nome } = req.params
+  const response = await encontrarUsuarioPorNome(nome)
+
+  return res.json(response)
+
 }
