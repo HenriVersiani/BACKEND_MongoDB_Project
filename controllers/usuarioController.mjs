@@ -1,7 +1,25 @@
+import { Usuario } from "../models/usuarioModel.js";
 import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, encontrarUsuarioPorId, encontrarUsuarioPorNome, listarUsuarios } from "../services/usuarioService.js";
 
 export async function criarUsuarioController(req, res) {
   const data = req.body
+
+  const {nome, email, areaOcupacao, numeroTelefone } = data
+
+  if(!data){
+    return res.json("Informaçoes obrigatórias nao enviadas!")
+  }
+
+  if(!nome || !email || !areaOcupacao || !numeroTelefone){
+    return res.json("Preencha todos os campos!")
+  }
+
+  const mesmoEmail = await encontrarUsuarioPorEmail(email)
+
+  if(mesmoEmail.length !== 0){
+    return res.json("Usuário já existe!")
+  }
+
   const response = await criarUsuario(data)
   return res.json(response)
 }
@@ -14,6 +32,18 @@ export async function listarUsuariosController(req, res) {
 export async function deletarUsuarioController(req, res) {
   const { id } = req.params
 
+  if(!id){
+    return res.json("Id nao informado!")
+  }
+
+  const mesmoId = await encontrarUsuarioPorId(id)
+
+
+
+  if(!mesmoId){
+    return res.json("Usuário nao encontrado!")
+  }
+
   const response = await deletarUsuarioPorId(id)
 
   return res.json(response)
@@ -24,6 +54,24 @@ export async function deletarUsuarioController(req, res) {
 export async function alterarUsuarioPorIdController(req, res) {
   const { id } = req.params
   const data = req.body
+
+  if(!id){
+    return res.json("Id nao informado!")
+  }
+
+  if(!data){
+    return res.json("Dados não informados!")
+  }
+
+  const mesmoId = await encontrarUsuarioPorId(id)
+
+
+
+  if(!mesmoId){
+    return res.json("Usuário nao encontrado!")
+  }
+
+
 
   const response = alterarUsuarioPorId(data, id)
 
@@ -37,6 +85,18 @@ export async function encontrarUsuarioPorIdController(req, res) {
 
   const { id } = req.params
 
+  if(!id){
+    return res.json("Id nao informado!")
+  }
+
+  const mesmoId = await encontrarUsuarioPorId(id)
+
+
+
+  if(!mesmoId){
+    return res.json("Usuário nao encontrado!")
+  }
+
   const response = await encontrarUsuarioPorId(id)
 
   return res.json(response)
@@ -45,6 +105,14 @@ export async function encontrarUsuarioPorIdController(req, res) {
 export async function encontrarUsuarioPorNomeController(req, res) {
   const { nome } = req.params
   const response = await encontrarUsuarioPorNome(nome)
+
+  if(!nome){
+    return res.json("Nome nao informado!")
+  }
+
+  if(response.length === 0){
+    return res.json("Nome nao encontrado!")
+  }
 
   return res.json(response)
 
