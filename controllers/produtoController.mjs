@@ -1,9 +1,9 @@
-import { alterarProdutoPorId, buscarProdutoPorNome, criarProduto, deletarProdutoPorId, listarProdutoPorId, listarProdutos, listarProdutosCategoria } from "../services/produtoService.js";
+import { alterarProdutoPorId, buscarProdutoPorNome, criarProduto, deletarProdutoPorId, listarProdutoPorId, listarProdutos, listarProdutosCategoria } from "../services/produtoService.mjs";
 import { encontrarUsuarioPorEmail } from "../services/usuarioService.js";
 
 export async function criarProdutoController(req, res) {
     const data = req.body
-
+    
     const { nome, preco, categoria, imagem } = data
 
     if (!data) {
@@ -13,7 +13,6 @@ export async function criarProdutoController(req, res) {
     if (!nome || !preco || !categoria || !imagem) {
         return res.json("Preencha todos os campos!")
     }
-
     const response = await criarProduto(data)
     return res.json(response)
 }

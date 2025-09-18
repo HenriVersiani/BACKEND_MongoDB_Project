@@ -1,4 +1,4 @@
-import { Produto } from "../models/produtoModel.js";
+import { Produto } from "../models/produtoModel.mjs"
 
 export async function criarProduto(data) {
     const novoProduto = new Produto(data)

@@ -1,4 +1,4 @@
-import { Usuario } from "../models/usuarioModel.js";
+import { Usuario } from "../models/usuarioModel.mjs";
 
 export async function encontrarUsuarioPorEmail(email) {
   const usuario = await Usuario.find({ email: email })
