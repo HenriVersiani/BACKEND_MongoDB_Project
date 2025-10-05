@@ -1,15 +1,17 @@
 import mongoose from "mongoose";
-import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioPorEmail, encontrarUsuarioPorId, encontrarUsuarioPorNome, listarUsuarios } from "../services/usuarioService.js";
+import { alterarUsuarioPorId, criarUsuario, deletarUsuarioPorId, encontrarUsuarioLogin, encontrarUsuarioPorEmail, encontrarUsuarioPorId, encontrarUsuarioPorNome, encontrarUsuarioPorTelefone, listarUsuarios } from "../services/usuarioService.mjs";
 
 export async function criarUsuarioController(req, res) {
   const data = req.body
-  const response = await criarUsuario(data)
+  const { email } = data
 
   const mesmoEmail = await encontrarUsuarioPorEmail(email)
-   
-     if(mesmoEmail.length !== 0){
-       return res.json("Usuário já existe!")
-     }
+
+  if (mesmoEmail.length !== 0) {
+    return res.json({ "error": "Usuário já existe!" })
+  }
+
+  const response = await criarUsuario(data)
 
   return res.json(response)
 }
@@ -24,8 +26,8 @@ export async function deletarUsuarioController(req, res) {
 
   const mesmoId = await encontrarUsuarioPorId(id)
 
-  if(!mesmoId){
-    return res.json("Usuário nao encontrado!")
+  if (!mesmoId) {
+    return res.json({ "error": "Usuário não encontrado!" })
   }
 
   const response = await deletarUsuarioPorId(id)
@@ -41,8 +43,8 @@ export async function alterarUsuarioPorIdController(req, res) {
 
   const mesmoId = await encontrarUsuarioPorId(id)
 
-  if(!mesmoId){
-    return res.json("Usuário nao encontrado!")
+  if (!mesmoId) {
+    return res.json({ "error": "Usuário nao encontrado!" })
   }
 
   const response = alterarUsuarioPorId(data, id)
@@ -59,8 +61,8 @@ export async function encontrarUsuarioPorIdController(req, res) {
 
   const mesmoId = await encontrarUsuarioPorId(id)
 
-  if(!mesmoId){
-    return res.json("Usuário nao encontrado!")
+  if (!mesmoId) {
+    return res.json({ "error": "Usuário nao encontrado!" })
   }
 
   const response = await encontrarUsuarioPorId(id)
@@ -72,10 +74,31 @@ export async function encontrarUsuarioPorNomeController(req, res) {
   const { nome } = req.params
   const response = await encontrarUsuarioPorNome(nome)
 
-  if(response.length === 0){
-    return res.json("Nome nao encontrado!")
+  if (response.length === 0) {
+    return res.json({ "error": "Nome nao encontrado!" })
   }
 
   return res.json(response)
 
+}
+
+export async function loginUsuarioController(req, res) {
+  const { email, senha } = req.body
+
+  const usuarioValido = await encontrarUsuarioLogin(email, senha)
+
+  if (!usuarioValido) {
+    return res.json(
+      {
+        "error": "email ou número inválido",
+        "token": "failed"
+      })
+  }
+
+  const response = {
+    "idUsuario": `${usuarioValido[0]._id}`,
+    "token": "success"
+  }
+
+  return res.json(response)
 }

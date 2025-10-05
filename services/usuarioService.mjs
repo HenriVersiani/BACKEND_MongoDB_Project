@@ -30,3 +30,25 @@ export async function alterarUsuarioPorId(data, id) {
 export async function encontrarUsuarioPorNome(nomeUsuario) {
   return await Usuario.find({nome: nomeUsuario})
 }
+
+export async function encontrarUsuarioPorTelefone(numeroTelefone) {
+   return await Usuario.find({numeroTelefone: numeroTelefone})
+}
+
+export async function encontrarUsuarioLogin(email, senha) {
+   const usuario = await Usuario.find({email: email})
+
+   console.log(usuario)
+
+    if(!usuario){
+      return false
+    }
+
+   const senhaCadastrada = usuario[0].senha
+
+    if(senha !== senhaCadastrada){
+      return false
+    }
+
+   return usuario
+}

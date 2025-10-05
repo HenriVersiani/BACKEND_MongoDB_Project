@@ -19,7 +19,13 @@ const usuarioSchema = new mongoose.Schema({
     numeroTelefone: {
         type: Number,
         required: true,
+    },
+
+    senha:{
+        type: String,
+        required: true,
     }
+
 },
     {
         timestamps: true

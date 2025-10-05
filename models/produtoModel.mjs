@@ -13,10 +13,25 @@ const produtoSchema = new mongoose.Schema({
 
     categoria: {
         type: String,
-        required: true
+        required: true,
     },
 
     imagem: {
+        type: String,
+        required: true,
+    },
+
+    status: {
+        type: String,
+        required: true,
+    },
+
+    genero: {
+        type: String,
+        required: true,
+    },
+
+    classificacao: {
         type: String,
         required: true,
     }

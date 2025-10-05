@@ -1,7 +1,8 @@
 import express from "express"
 import {
     alterarUsuarioPorIdController, criarUsuarioController, deletarUsuarioController,
-    encontrarUsuarioPorIdController, encontrarUsuarioPorNomeController, listarUsuariosController
+    encontrarUsuarioPorIdController, encontrarUsuarioPorNomeController, listarUsuariosController,
+    loginUsuarioController
 } from "../controllers/usuarioController.mjs";
 import { verificarAlterarUsuario, verificarCriacaoUsuario,  verificarDeletarUsuário, verificarEncontrarUsuarioId, verificarEncontrarUsuarioNome } from "../middlewares/usuarioMiddleware.mjs";
 
@@ -17,3 +18,5 @@ userRouter.post("/",verificarCriacaoUsuario,  criarUsuarioController);
 
 userRouter.delete("/:id",verificarDeletarUsuário, deletarUsuarioController);
 userRouter.put("/:id",verificarAlterarUsuario, alterarUsuarioPorIdController);
+
+userRouter.post("/login", loginUsuarioController)

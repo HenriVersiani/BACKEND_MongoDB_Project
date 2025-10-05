@@ -9,11 +9,11 @@ export async function verificarCriacaoUsuario(req, res, next) {
     const { nome, email, areaOcupacao, numeroTelefone } = data
 
     if (!data) {
-        return res.json("Informaçoes obrigatórias nao enviadas!")
+        return res.json({"error": "Informaçoes obrigatórias nao enviadas!"})
     }
 
     if (!nome || !email || !areaOcupacao || !numeroTelefone) {
-        return res.json("Preencha todos os campos!")
+        return res.json({"error": "Preencha todos os campos!"})
     }
 
     if (typeof nome !== "string") {
@@ -53,7 +53,7 @@ export async function verificarAlterarUsuario(req, res, next) {
     }
 
     if (!data) {
-        return res.json("Dados não informados!")
+        return res.json({"error": "Dados não informados!"})
     }
     next()
 }
@@ -72,7 +72,7 @@ export async function verificarEncontrarUsuarioNome(req,res,next) {
       const response = await encontrarUsuarioPorNome(nome)
     
       if(!nome){
-        return res.json("Nome nao informado!")
+        return res.json({"error": "Nome nao informado!" })
       }
       next()
 }
