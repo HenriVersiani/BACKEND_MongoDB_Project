@@ -1,5 +1,15 @@
 
-import { alterarVendaPorIdService, deletarVendaPorIdService, gerarVendaService,  listarVendaPorIdService,  listarVendasPorVendedorService,  listarVendasService }  from "../services/vendaService.mjs"
+import e from "express"
+import {
+    alterarVendaPorIdService,
+    deletarVendaPorIdService,
+    gerarVendaService,
+    listarVendaPorIdService,
+    listarVendaPorMetodoPagamentoService,
+    listarVendaPorProdutoService,
+    listarVendaPorVendedorService,
+    listarVendasService
+} from "../services/vendaService.mjs"
 
 
 export async function gerarVendaController(req, res) {
@@ -11,37 +21,53 @@ export async function gerarVendaController(req, res) {
 
 export async function listarVendasController(req, res) {
     const response = await listarVendasService()
-    res.json(response)
+    return res.json(response)
 }
 
 export async function deletarVendasController(req, res) {
     const { id } = req.params
 
     const response = await deletarVendaPorIdService(id)
-    res.json(response)
+    return res.json(response)
 }
 
 export async function alterarVendaController(req, res) {
     const data = req.body
-    const { id }  = req.params
+    const { id } = req.params
 
     console.log(data, id)
 
     const response = await alterarVendaPorIdService(data, id)
 
-    res.json(response)
+    return res.json(response)
 }
 
 export async function listarVendaporIdController(req, res) {
     const { id } = req.params
 
     const response = await listarVendaPorIdService(id)
-    res.json(response)
+    return res.json(response)
 }
 
-export async function listarVendasPorVendedorController(req, res) {
-    const idVendedor = req.params
+export async function listarVendaPorVendedorController(req, res) {
+    const { id } = req.params
 
-    const response = await listarVendasPorVendedorService(idVendedor)
-    res.json(response)
+    const response = await listarVendaPorVendedorService(id)
+    return res.json(response)
+}
+
+export async function listarVendaPorProdutoController(req, res){
+    const { id } = req.params
+
+    const response = await listarVendaPorProdutoService(id)
+
+    return res.json(response)
+}
+
+export async function listarVendaPorPagamentoController(req, res) {
+    const { metodoPagamento } = req.params
+
+    const response = await listarVendaPorMetodoPagamentoService(metodoPagamento)
+
+    return res.json(response)
 }
