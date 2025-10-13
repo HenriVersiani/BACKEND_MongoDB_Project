@@ -36,11 +36,11 @@ export async function encontrarUsuarioPorTelefone(numeroTelefone) {
 }
 
 export async function encontrarUsuarioLogin(email, senha) {
-   const usuario = await Usuario.find({email: email})
+   const usuario = await Usuario.find({email: email} && {senha: senha})
 
    console.log(usuario)
 
-    if(!usuario){
+    if(usuario.length === 0){
       return false
     }
 

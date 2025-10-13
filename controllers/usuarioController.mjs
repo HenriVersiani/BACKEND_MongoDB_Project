@@ -85,12 +85,14 @@ export async function encontrarUsuarioPorNomeController(req, res) {
 export async function loginUsuarioController(req, res) {
   const { email, senha } = req.body
 
+  console.log(senha, email)
+
   const usuarioValido = await encontrarUsuarioLogin(email, senha)
 
   if (!usuarioValido) {
     return res.json(
       {
-        "error": "email ou número inválido",
+        "error": "Email ou senha inválida",
         "token": "failed"
       })
   }
