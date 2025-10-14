@@ -28,7 +28,7 @@ export async function alterarUsuarioPorId(data, id) {
 }
 
 export async function encontrarUsuarioPorNome(nomeUsuario) {
-  return await Usuario.find({nome: nomeUsuario})
+  return await Usuario.find({nome: nomeUsuario}) // encontrar o metodo escrito no trello
 }
 
 export async function encontrarUsuarioPorTelefone(numeroTelefone) {
