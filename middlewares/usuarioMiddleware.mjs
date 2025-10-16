@@ -1,5 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
+import { encontrarUsuarioPorNome } from "../services/usuarioService.mjs"
 
 
 export async function verificarCriacaoUsuario(req, res, next) {
