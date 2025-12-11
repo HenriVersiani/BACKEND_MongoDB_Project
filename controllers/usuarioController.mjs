@@ -85,7 +85,7 @@ export async function encontrarUsuarioPorNomeController(req, res) {
 export async function loginUsuarioController(req, res) {
   const { email, senha } = req.body
 
-  console.log(senha, email)
+  console.log("email e senha:",email, senha)
 
   const usuarioValido = await encontrarUsuarioLogin(email, senha)
 
@@ -98,7 +98,7 @@ export async function loginUsuarioController(req, res) {
   }
 
   const response = {
-    "idUsuario": `${usuarioValido[0]._id}`,
+    "idUsuario": `${usuarioValido._id}`,
     "token": "success"
   }
 

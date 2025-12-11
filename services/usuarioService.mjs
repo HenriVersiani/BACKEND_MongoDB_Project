@@ -1,4 +1,5 @@
 import { Usuario } from "../models/usuarioModel.mjs";
+import bcrypt, { compareSync } from "bcryptjs";
 
 export async function encontrarUsuarioPorEmail(email) {
   const usuario = await Usuario.find({ email: email })
@@ -11,7 +12,13 @@ export async function encontrarUsuarioPorId(id) {
 }
 
 export async function criarUsuario(data) {
-  const novoUsuario = new Usuario(data)
+  const payload = { ...data }
+
+  if (payload.senha) {
+    payload.senha = await bcrypt.hash(payload.senha, 10)
+  }
+
+  const novoUsuario = new Usuario(payload)
   return await novoUsuario.save()
 }
 
@@ -35,23 +42,24 @@ export async function encontrarUsuarioPorNome(nomeUsuario) {
 
 
 export async function encontrarUsuarioPorTelefone(numeroTelefone) {
-   return await Usuario.find({numeroTelefone: numeroTelefone})
+  return await Usuario.find({ numeroTelefone: numeroTelefone })
 }
 
 export async function encontrarUsuarioLogin(email, senha) {
-   const usuario = await Usuario.find({email: email} && {senha: senha})
+  const usuario = await Usuario.findOne({ email: email }).lean()
 
-   console.log(usuario)
+  const payload = { ...usuario }
 
-    if(usuario.length === 0){
-      return false
-    }
+  const senhaVerify = await bcrypt.compare(senha, payload.senha)
 
-   const senhaCadastrada = usuario[0].senha
+  if (!senhaVerify) {
+    return console.log("senha incorreta")
+  }
 
-    if(senha !== senhaCadastrada){
-      return false
-    }
+  if (payload.length === 0) {
+    return false
+  }
 
-   return usuario
+// token de retorno
+  return payload
 }
