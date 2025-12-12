@@ -47,7 +47,9 @@ export async function alterarUsuarioPorIdController(req, res) {
     return res.json({ "error": "Usuário nao encontrado!" })
   }
 
-  const response = alterarUsuarioPorId(data, id)
+  const response = await alterarUsuarioPorId(data, id)
+
+  console.log("resposta:",response)
 
   return res.json(response)
 

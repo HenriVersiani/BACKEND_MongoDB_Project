@@ -13,26 +13,26 @@ export async function verificarCriacaoUsuario(req, res, next) {
         return res.json({"error": "Informaçoes obrigatórias nao enviadas!"})
     }
 
-    if (!nome || !email || !areaOcupacao || !numeroTelefone) {
-        return res.json({"error": "Preencha todos os campos!"})
-    }
-
+    
     if (typeof nome !== "string") {
         return res.json({ "error": "Nome no formato errado" })
     }
-
+    
     if (typeof email !== "string") {
         return res.json({ "error": "Email no formato errado" })
     }
-
+    
     if (typeof areaOcupacao !== "string") {
         return res.json({ "error": "Area de Ocupação no formato errado" })
     }
-
+    
     if (typeof numeroTelefone !== "number") {
         return res.json({ "error": "Número no formato errado" })
     }
-
+    
+    if (!nome || !email || !areaOcupacao || !numeroTelefone) {
+        return res.json({"error": "Preencha todos os campos!"})
+    }
     next()
 }
 
