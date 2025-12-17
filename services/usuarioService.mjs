@@ -99,7 +99,7 @@ export async function encontrarUsuarioLogin(email, senha) {
     return false
   }
 
-  // token de retorno
+  const token = gerarToken(usuario)
 
-  return payload
+  return { email: payload.email, nome: payload.nome, token }
 }
