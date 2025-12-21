@@ -87,22 +87,7 @@ export async function encontrarUsuarioPorNomeController(req, res) {
 export async function loginUsuarioController(req, res) {
   const { email, senha } = req.body
 
-  console.log("email e senha:",email, senha)
-
-  const usuarioValido = await encontrarUsuarioLogin(email, senha)
-
-  if (!usuarioValido) {
-    return res.json(
-      {
-        "error": "Email ou senha inválida",
-        "token": "failed"
-      })
-  }
-
-  const response = {
-    "idUsuario": `${usuarioValido._id}`,
-    "token": "success"
-  }
+  const response = await encontrarUsuarioLogin(email, senha)
 
   return res.json(response)
 }

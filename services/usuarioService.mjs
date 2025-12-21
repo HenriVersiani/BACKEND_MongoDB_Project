@@ -54,6 +54,7 @@ export async function deletarUsuarioPorId(id) {
 }
 
 export async function alterarUsuarioPorId(data, id) {
+
   const { oldSenha, newSenha, ...userData } = data
   const payload = { ...userData }
   const usuario = await encontrarUsuarioPorId(id)
@@ -87,16 +88,20 @@ export async function encontrarUsuarioPorTelefone(numeroTelefone) {
 export async function encontrarUsuarioLogin(email, senha) {
   const usuario = await Usuario.findOne({ email: email }).lean()
 
+  if(usuario == null){
+    return {"error": "Incorrect email"}
+  }
+
   const payload = { ...usuario }
 
   const senhaVerify = await bcrypt.compare(senha, payload.senha)
 
   if (!senhaVerify) {
-    return console.log("senha incorreta")
+    return {"error": "Incorrect password"} 
   }
 
   if (payload.length === 0) {
-    return false
+    return {"error": "Invalid arguments"}
   }
 
   const token = gerarToken(usuario)
