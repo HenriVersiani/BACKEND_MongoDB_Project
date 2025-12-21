@@ -20,3 +20,5 @@ userRouter.delete("/:id",verificarDeletarUsuário, deletarUsuarioController);
 userRouter.put("/:id",verificarAlterarUsuario, alterarUsuarioPorIdController);
 
 userRouter.post("/login", loginUsuarioController)
+
+// flash token predefinir.
