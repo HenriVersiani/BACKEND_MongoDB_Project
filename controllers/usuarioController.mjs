@@ -49,8 +49,6 @@ export async function alterarUsuarioPorIdController(req, res) {
 
   const response = await alterarUsuarioPorId(data, id)
 
-  console.log("resposta:",response)
-
   return res.json(response)
 
 }

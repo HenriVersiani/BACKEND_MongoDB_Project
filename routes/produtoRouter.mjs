@@ -18,3 +18,5 @@ productRouter.post("/",verificarCriacaoProduto, criarProdutoController);
 productRouter.delete("/:id",verificarDeletarProduto, deletarProdutoPorIdController);
 
 productRouter.put("/:id",verificarAlterarProduto, alterarProdutoPorIdController);
+
+//flash posts definidos

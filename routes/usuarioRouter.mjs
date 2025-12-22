@@ -21,4 +21,4 @@ userRouter.put("/:id",verificarAlterarUsuario, alterarUsuarioPorIdController);
 
 userRouter.post("/login", loginUsuarioController)
 
-// flash token predefinir.
+// flash posts definidos.

@@ -35,8 +35,6 @@ export async function alterarVendaController(req, res) {
     const data = req.body
     const { id } = req.params
 
-    console.log(data, id)
-
     const response = await alterarVendaPorIdService(data, id)
 
     return res.json(response)

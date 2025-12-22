@@ -23,7 +23,7 @@ export async function alterarProdutoPorIdController(req, res) {
         return res.json({ "error": "Produto nao encontrado!" })
     }
 
-    const response = alterarProdutoPorId(data, id)
+    const response = await alterarProdutoPorId(data, id)
     return res.json(response)
 }
 
@@ -60,8 +60,6 @@ export async function listarProdutosCategoriaController(req, res) {
     //categoria nao existe:
 
     const mesmaCategoria = await listarProdutosCategoria(categoria)
-
-    console.log(mesmaCategoria)
 
     if (mesmaCategoria.length === 0) {
         return res.json({ "error": "Categoria não encontrada!" })

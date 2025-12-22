@@ -24,3 +24,5 @@ vendaRouter.post('/', gerarVendaController)
 vendaRouter.put('/:id', alterarVendaController)
 
 vendaRouter.delete('/:id', deletarVendasController)
+
+//flash posts definidos

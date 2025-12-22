@@ -69,8 +69,6 @@ export async function alterarUsuarioPorId(data, id) {
     payload.senha = await bcrypt.hash(newSenha, 10)
   }
 
-  console.log(payload)
-
   return await Usuario.findByIdAndUpdate(id, payload, { new: true })
 }
 
